@@ -42,7 +42,7 @@ function Header() {
 
             </div>
 
-            <Link to="/checkout">
+            <Link className='link' to="/checkout">
             <div className="header__cart">
                 <ShoppingCartOutlinedIcon className="header__optionlineTwo header__cartIcon"/>
 
