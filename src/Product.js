@@ -15,7 +15,8 @@ function Product({id, title, price, image}) {
                 <img className="product__image" src={image} alt="" />
 
             </div>
-                <button className="product__button">Add to Cart</button>
+            <button className="product__button">Add To Cart</button>
+                {/* <button onClick={() => dispatch({type:"ADD_TO_CART"})}>Add To Cart</button> */}
         </div>
     )
 }
