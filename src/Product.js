@@ -6,7 +6,7 @@ function Product({id, title, price, image}) {
 
     const [{cart}, dispatch] = useStateValue();
 
-    console.log(cart);
+    // console.log(cart);
 
     const addToCart = () => {
 
