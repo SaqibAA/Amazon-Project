@@ -6,19 +6,17 @@ function CheckoutProduct({id, title, price, image}) {
 
     const [{cart}, dispatch] = useStateValue();
 
-    const removeToCart = () => {
+    const removeFromCart = () => {
 
         dispatch({
-            type: "REMOVE_TO_CART",
-
-            item:{
+            type: "REMOVE_FROM_CART",
+            // item:{
                id: id,
-               title: title,
-               price: price,
-               image: image, 
-            }
-        }
-        );
+            //    title: title,
+            //    price: price,
+            //    image: image, 
+            // }
+        });
     }
     
     return (
@@ -32,7 +30,7 @@ function CheckoutProduct({id, title, price, image}) {
                     <bold>₹</bold>
                     <strong>{price}</strong>
                 </p>
-                <button className='remove_button' onClick = {removeToCart}>Romove From Cart</button>
+                <button className='remove_button' onClick = {removeFromCart}>Romove From Cart</button>
             </div>
 
         </div>
