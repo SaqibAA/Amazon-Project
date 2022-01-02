@@ -11,15 +11,30 @@ function Login() {
 
     const signIn = e => {
         e.preventDefault();
+        //it Successfull Login
+        auth
+            .signInWithEmailAndPassword(email, password)
+            .then((auth) => {
+                if(auth){
+                    history.push("/")
+                }
+            })
+            .catch(error => alert(error.message))
     }
 
     const register = e => {
         e.preventDefault();
 
-        auth.createUserWithEmailAndPassword(email, password).then((auth) => {
-                //it Successfull Create A new User
-                console.log(auth);
-            }).catch(error => alert(error.message))
+        auth
+            .createUserWithEmailAndPassword(email, password)
+            .then((auth) => {
+                    //it Successfull Create A new User
+                    // console.log(auth);
+                    if(auth){
+                        history.push("/")
+                    }
+                })
+            .catch(error => alert(error.message))
     }
 
     return (

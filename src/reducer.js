@@ -1,5 +1,6 @@
 export const initialState = {
     cart: [],
+    user: null,
 };
 
 // Fat Arrow Curly beraket no remove return
@@ -18,20 +19,25 @@ const reducer = (state, action) => {
                 cart: [...state.cart,action.item],
             }
         case "REMOVE_FROM_CART":
-                const index = state.cart.findIndex((cartItem => cartItem.id === action.id));
+            const index = state.cart.findIndex((cartItem => cartItem.id === action.id));
 
-                let newCart = [...state.cart];
-                
-                if(index >= 0)
-                {
-                    newCart.splice(index,1);
-                }else{
-                    console.warn('Cant Remove, as Cart is Empty')
-                }
-                return{
-                    ...state,
-                    cart: newCart,
-                }
+            let newCart = [...state.cart];
+            
+            if(index >= 0)
+            {
+                newCart.splice(index,1);
+            }else{
+                console.warn('Cant Remove, as Cart is Empty')
+            }
+            return{
+                ...state,
+                cart: newCart,
+            }
+        case "SET_USER":
+            return{
+                ...state,
+                user: action.user
+            }
 
         default:
             return state;
