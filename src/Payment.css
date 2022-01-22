@@ -18,6 +18,10 @@
     border-bottom: 1px solid lightgray;
 }
 
-.payment_address{
+.payment_title{
     flex: 0.2;
+}
+
+.address, .payment_items{
+    flex: 0.8;
 }
