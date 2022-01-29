@@ -1,5 +1,6 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import CurrencyFormat from 'react-currency-format';
 import CheckoutProduct from './CheckoutProduct';
 import './Payment.css';
@@ -17,9 +18,30 @@ function Payment() {
     const [disabled, setDisabled] = useState(true);
     const [processing, setProcessing] = useState("");
     const [succeeded, setSucceeded] = useState(false);
+    const [clientSecret, setClientSecret] = useState(true);
 
-    const handleSubmit = e => {
+    useEffect(() => {
 
+        const getClintSecret = async () => {
+            const responce = await axios({
+                method: 'post',
+                //Strip expect total amount in base currencies like Rupees to paise
+                url:`/payments/create?total=${getCartTotal(cart) * 100}`,
+            });
+            setClientSecret(responce.data.clientSecret)
+        }
+        getClintSecret();
+    },[cart])
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        setProcessing(true);
+
+        const payload = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: elements.getElement(CardElement)
+            }
+        });
     }
 
     const handleChange = event => {
@@ -73,7 +95,7 @@ function Payment() {
                                     renderText = { (value) => (
                                         <>
                                         <p>Subtotal ({cart.length} items):<strong>{value}</strong> </p>
-                                            <small className='subtotal__gift'> <input type="checkbox"></input> This order contains a gift </small>
+                                            
                                         </>
                                     )}
                                         decimalScale = {2}
@@ -88,6 +110,9 @@ function Payment() {
                                 </button>
 
                             </div>
+
+                            {/* Error */}
+                            {error && <div>{error}</div>}
 
                         </form>
 
